@@ -60,4 +60,8 @@ resource "aws_lambda_function" "consumer-iot-lambda" {
 }
 
 
-
+resource "aws_lambda_event_source_mapping" "consumer-iot-es-mapping" {
+    event_source_arn = aws_kinesis_stream.broker-kinesis.arn
+    function_name    = aws_lambda_function.consumer-iot-lambda.arn
+    starting_position = "LATEST"
+}
